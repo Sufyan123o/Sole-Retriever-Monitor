@@ -6,8 +6,8 @@ from dotenv import load_dotenv
 from discord.ext import commands, tasks
 
 load_dotenv()
-TOKEN = "MTA5ODUxNDExNDk0MDI1NjMxNg.G1TabX.PD6mpBz1d_QfQRPKvfA_1tTOB_jHncfg2rjPxI" #token
-CHANNEL_ID = 692518598241026139
+TOKEN = "Token"
+CHANNEL_ID = "ChannelID"
 
 intents = discord.Intents.default()
 intents.typing = False
