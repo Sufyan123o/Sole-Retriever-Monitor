@@ -15,13 +15,9 @@ import emoji
 from dotenv import load_dotenv
 
 
-WEBHOOK_URL = 'https://discord.com/api/webhooks/1098704908921876653/MarGN7mW0pDiP6ERbJ78OainQSiCLCjj-LuoyuinmAZ0oBbdBjuFDAoFLWX02T61f_r0'
+WEBHOOK_URL = 'your_discord_webhook_here'
 load_dotenv()
-TOKEN = 'MTA5ODUxNDExNDk0MDI1NjMxNg.GlNzHh.Nk6LG1wI_oMxi72nelCT1tS6AJo_jMDoV9xg64'
-
-# WEBHOOK_URL = 'your_discord_webhook_here'
-# load_dotenv()
-# TOKEN = 'your_discord_bot_token_here'
+TOKEN = 'your_discord_bot_token_here'
 
 intents = discord.Intents.all()
 intents.typing = False
