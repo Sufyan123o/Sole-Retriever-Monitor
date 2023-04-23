@@ -1,26 +1,27 @@
-import os
+import json, re
+from datetime import datetime
+
 import discord
-import requests
-import json
-from dotenv import load_dotenv
 from discord.ext import commands, tasks
-from discord import Webhook, Embed
+from discord import Embed
+
 import requests
 from bs4 import BeautifulSoup
-from datetime import datetime
 import cfscrape
-import re
-import pycountry
+
 from pycountry_convert import country_name_to_country_alpha2
 import emoji
+
+from dotenv import load_dotenv
 
 
 WEBHOOK_URL = 'https://discord.com/api/webhooks/1098704908921876653/MarGN7mW0pDiP6ERbJ78OainQSiCLCjj-LuoyuinmAZ0oBbdBjuFDAoFLWX02T61f_r0'
 load_dotenv()
-TOKEN = "MTA5ODUxNDExNDk0MDI1NjMxNg.GlNzHh.Nk6LG1wI_oMxi72nelCT1tS6AJo_jMDoV9xg64" #token
+TOKEN = 'MTA5ODUxNDExNDk0MDI1NjMxNg.GlNzHh.Nk6LG1wI_oMxi72nelCT1tS6AJo_jMDoV9xg64'
 
-
-# CHANNEL_ID = 692518598241026139
+# WEBHOOK_URL = 'your_discord_webhook_here'
+# load_dotenv()
+# TOKEN = 'your_discord_bot_token_here'
 
 intents = discord.Intents.all()
 intents.typing = False
@@ -44,10 +45,6 @@ async def on_ready():
     check_raffles.start()
 
 def get_retailer_name(raffle_url):
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36 Edge/17.17134"
-    }
-    
     # Create a Cloudflare scraper object
     scraper = cfscrape.create_scraper()
     
@@ -104,7 +101,7 @@ def extract_raffle_information(soup):
     return start_date, close_date, raffle_type, region, retrieval
 
 
-async def send_embedded_message(title, url, image_url, raffle_id, raffle_url, retailer_name):
+async def send_embedded_message(title, url, image_url, raffle_url, retailer_name):
     # Create a Cloudflare scraper object
     scraper = cfscrape.create_scraper()
     # Use the scraper object to get the page content
@@ -183,13 +180,12 @@ async def check_raffles():
 
         for raffle in product["raffle"]:
             raffle_id = raffle["id"]
-            print(f"Raffle ID's Scraped")
             if raffle_id not in raffle_ids:
                 raffle_ids.add(raffle_id)
                 raffle_url = f"https://www.soleretriever.com/raffles/{product_slug}/raffle/{raffle_id}" if model_slug is not None else None
                 retailer_name = get_retailer_name(raffle_url) if raffle_url is not None else None
-                await send_embedded_message(f"{product_name}:", product_url, product_image_url, raffle_id, raffle_url, retailer_name)
-
+                await send_embedded_message(f"{product_name}:", product_url, product_image_url, raffle_url, retailer_name)
+    print("Raffle's are being Checked for Updates")
 
 @bot.command()
 async def test(ctx):
@@ -216,11 +212,10 @@ async def test(ctx):
         test_product_name = test_product["name"]
         test_product_url = f"https://www.soleretriever.com/sneaker-release-dates/{test_product['shoeBrand']['slug']}/{test_product['shoeModel']['slug']}/{test_product['slug']}"
         test_image_url = test_product["imageUrl"]
-        test_raffle_id = 12345
 
         title = f"{test_product_name}"
         test_retailer_name = get_retailer_name(test_raffle_url)
-        await send_embedded_message(title, test_product_url, test_image_url, test_raffle_id, test_raffle_url, test_retailer_name)
+        await send_embedded_message(title, test_product_url, test_image_url, test_raffle_url, test_retailer_name)
         await ctx.send("Test webhook sent.")
     else:
         await ctx.send("Test failed.")
