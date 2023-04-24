@@ -53,7 +53,7 @@ Suf Retriever is a **Discord bot** that monitors and notifies users about new sn
 1. Make Sure you have Python Installed. Then Install the required Python packages in using Command Prompt or Terminal:  
     Python and PIP installation guides can be found in the Discord server [here](https://discord.gg/b6zyJyCQUu).
     ```
-    pip install discord.py python-dotenv beautifulsoup4 cfscrape requests emoji
+    pip install -r requirements.txt
     ```
 
 2. Open the SufRetriever.py file in an IDE or a Text Editior such as NotePad and add your Discord Bot token:  
