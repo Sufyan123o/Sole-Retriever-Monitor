@@ -1,0 +1,9 @@
+{
+    "region_list": ["EU", "JP", "WW", "MY", "AU"],
+    "bot_token": "",
+    "embed_footer_text": "",
+    "embed_author_url": "",
+    "embed_color": "7180222",
+    "webhook_url": "",
+    "monitor_delay": 60
+}

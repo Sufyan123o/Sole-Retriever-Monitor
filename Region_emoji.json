@@ -1,0 +1,30 @@
+{
+    "JP": {
+        "name": "Japan",
+        "flag": "flag_jp"
+    },
+    "US": {
+        "name": "United States",
+        "flag": "flag_us"
+    },
+    "AU": {
+        "name": "Australia",
+        "flag": "flag_au"
+    },
+    "EU": {
+        "name": "Europe",
+        "flag": "flag_eu"
+    },
+    "MY": {
+        "name": "Malasia",
+        "flag": "flag_my"
+    },
+    "WW": {
+        "name": "Worldwide",
+        "flag": "globe_with_meridians"
+    },
+    "CA": {
+        "name": "Canada",
+        "flag": "flag_ca"
+    }
+}
