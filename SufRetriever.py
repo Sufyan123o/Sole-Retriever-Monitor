@@ -97,7 +97,7 @@ def extract_raffle_information(soup):
     return start_date, close_date, raffle_type, region, retrieval
 
 
-async def send_embedded_message(title, url, image_url, raffle_url, retailer_name):
+async def send_embedded_message(title, url, image_url, raffle_url, retailer_name, price):
     # Create a Cloudflare scraper object
     scraper = cfscrape.create_scraper()
     # Use the scraper object to get the page content
@@ -119,7 +119,8 @@ async def send_embedded_message(title, url, image_url, raffle_url, retailer_name
     embed.add_field(name="Open", value=start_date, inline=True)
     embed.add_field(name="Close", value=close_date, inline=True)
     embed.add_field(name="Delivery", value=get_delivery_emoji(retrieval), inline=True)
-    embed.add_field(name="Entry:", value=f"[Enter at {retailer_name}]({raffle_url})", inline=False)
+    embed.add_field(name="Entry:", value=f"[Enter at {retailer_name}]({raffle_url})", inline=True)
+    embed.add_field(name="Price:", value=f"${price}", inline=True)
 
     embed.set_footer(text="Suf Retriever", icon_url="https://cdn.discordapp.com/attachments/692518598241026139/1098991992085696592/download_2.png")
     embed.timestamp = datetime.utcnow()
@@ -173,6 +174,7 @@ async def check_raffles():
         product_slug = product["slug"]
         product_url = f"https://www.soleretriever.com/sneaker-release-dates/{brand_slug}/{model_slug}/{product_slug}" if model_slug is not None else None
         product_image_url = product["imageUrl"]
+        price = product["price"]
 
         for raffle in product["raffle"]:
             raffle_id = raffle["id"]
@@ -180,7 +182,7 @@ async def check_raffles():
                 raffle_ids.add(raffle_id)
                 raffle_url = f"https://www.soleretriever.com/raffles/{product_slug}/raffle/{raffle_id}" if model_slug is not None else None
                 retailer_name = get_retailer_name(raffle_url) if raffle_url is not None else None
-                await send_embedded_message(f"{product_name}:", product_url, product_image_url, raffle_url, retailer_name)
+                await send_embedded_message(f"{product_name}:", product_url, product_image_url, raffle_url, retailer_name, price)
     print("Raffle's are being Checked for Updates")
 
 @bot.command()
