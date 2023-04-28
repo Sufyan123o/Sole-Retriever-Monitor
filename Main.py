@@ -14,6 +14,9 @@ with open(os.getcwd() + '/Config.json') as f:
     webhook_url = data['webhook_url']
     delay = data['monitor_delay']
 
+with open(os.getcwd() + '/Region_emoji.json') as f:
+    region_emoji = json.load(f)
+
 def get_raffles(region):
     product_data = []
     headers = {
@@ -54,7 +57,7 @@ def get_raffle_details(product_data, region_data):
     }
 
     response = requests.get(
-        f'https://www.soleretriever.com/raffles/{product_data[0]}/raffle/{product_data[1]}',
+        f'https://www.soleretriever.com/raffles/{str(product_data[0])}/raffle/{str(product_data[1])}',
         headers=headers,
     )
 
@@ -73,7 +76,7 @@ def get_raffle_details(product_data, region_data):
         raffle_store= data_json['retailer']['name']
 
         webhook = DiscordWebhook(url = webhook_url)
-        embed = DiscordEmbed(title = f'{product_name}', url = f'https://www.soleretriever.com/raffles/{product_data[0]}/raffle/{product_data[1]}', color = int(embed_color), description=f'> New Raffle Live For {region_data["name"]} :{region_data["flag"]}:')
+        embed = DiscordEmbed(title = f'{str(product_name)}', url = f'https://www.soleretriever.com/raffles/{str(product_data[0])}/raffle/{str(product_data[1])}', color = int(embed_color), description=f'> New Raffle Live For {str(region_emoji[region_data]["name"])} :{str(region_emoji[region_data]["flag"])}:')
         embed.set_thumbnail(url = product_image)
         embed.set_footer(text = f'SoleRetriever Monitor by {embed_footer_text} \U000000B7 {datetime.datetime.now()}')
         embed.add_embed_field(name = 'Product SKU: ', value = f'`{product_sku}`')
@@ -130,24 +133,26 @@ def main(region,region_data):
 
         time.sleep(delay)
 
-@client.slash_command(description = 'Testing')
+@client.slash_command(description = 'Command To Test Webhook')
 async def webhook_test(ctx: discord.ApplicationContext):
     await ctx.defer(ephemeral=True)
     try:
         raffle = get_raffles(region_list[0])
-        get_raffle_details(raffle[0])
+        get_raffle_details(raffle[0], region_list[0])
         await ctx.respond('Testing Succesful', ephemeral=True)
-        print(datetime.datetime.now().strftime(f"[%d %B %Y %H:%M:%S.%f] Successfully Send Testing Webhook"))
+        print(datetime.datetime.now().strftime(f"[%d %B %Y %H:%M:%S.%f | Region: {region_list[0]}] Successfully Send Testing Webhook"))
     
     except Exception as e:
         await ctx.respond(f'Error: {str(e)}', ephemeral=True)
-        print(datetime.datetime.now().strftime(f"[%d %B %Y %H:%M:%S.%f] Error Sending Testing Webhook. Error: {str(e)}"))
+        print(datetime.datetime.now().strftime(f"[%d %B %Y %H:%M:%S.%f | Region: {region_list[0]}] Error Sending Testing Webhook. Error: {str(e)}"))
 
 @client.event
-async def on_message(message: discord.Interaction):
+async def on_message(message: discord.Message):
     if message.channel.id == 1100043271503351858:
-        await message.add_reaction("<✅>")
-    
+        try:
+            await message.add_reaction("✅")
+        except:
+            pass
     else:
         pass
 
