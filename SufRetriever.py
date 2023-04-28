@@ -167,7 +167,12 @@ def get_delivery_emoji(retrieval):
 async def check_raffles():
     new_raffles = await fetch_raffles()
     
-    for product in new_raffles:
+    # Define the keywords to filter by
+    keywords = ['travis'] #ADD KEYWORDS HERE in the format ['word', 'word1', 'word2',]
+    
+    # Filter products by the specified keywords (case-insensitive)
+    filtered_raffles = [product for product in new_raffles if any(keyword.lower() in product["name"].lower() for keyword in keywords)]
+    for product in filtered_raffles:
         product_name = product["name"]
         brand_slug = product["shoeBrand"]["slug"]
         model_slug = product["shoeModel"]["slug"] if product["shoeModel"] is not None else None
@@ -188,7 +193,7 @@ async def check_raffles():
 @bot.command()
 async def test(ctx):
     #Test only works for Raffle URLs on the first page as those are the only ones on the Json
-    test_raffle_url = "https://www.soleretriever.com/raffles/new-balance-990v2-miusa-season-2-brown-m990bb2/raffle/81564"
+    test_raffle_url = "https://www.soleretriever.com/raffles/nike-dunk-low-gorge-green-midnight-navy-dd1503-300/raffle/81976"
     
     # Extract the product slug from the test_raffle_url
     match = re.search(r'raffles/(.+?)/raffle', test_raffle_url)
