@@ -76,9 +76,9 @@ def get_raffle_details(product_data, region_data):
         raffle_store= data_json['retailer']['name']
 
         webhook = DiscordWebhook(url = webhook_url)
-        embed = DiscordEmbed(title = f'{str(product_name)}', url = f'https://www.soleretriever.com/raffles/{str(product_data[0])}/raffle/{str(product_data[1])}', color = int(embed_color), description=f'> New Raffle Live For {str(region_emoji[region_data]["name"])} :{str(region_emoji[region_data]["flag"])}:')
+        embed = DiscordEmbed(title = f'{str(product_name)}', url = f'https://www.soleretriever.com/raffles/{str(product_data[0])}/raffle/{str(product_data[1])}', color = int(embed_color), description=f'> New Raffle Live For {str(region_data["name"])} :{str(region_data["flag"])}:')
         embed.set_thumbnail(url = product_image)
-        embed.set_footer(text = f'SoleRetriever Monitor by {embed_footer_text} \U000000B7 {datetime.datetime.now()}', icon_url = "https://i.imgur.com/rdWuZBR.png")
+        embed.set_footer(text = f'SoleRetriever Monitor by {embed_footer_text} \U000000B7 {datetime.datetime.now()}')
         embed.add_embed_field(name = 'Product SKU: ', value = f'`{product_sku}`')
 
         if raffle_type == 'In app':
@@ -138,7 +138,7 @@ async def webhook_test(ctx: discord.ApplicationContext):
     await ctx.defer(ephemeral=True)
     try:
         raffle = get_raffles(region_list[0])
-        get_raffle_details(raffle[0], region_list[0])
+        get_raffle_details(raffle[0], region_emoji[region_list[0]])
         await ctx.respond('Testing Succesful', ephemeral=True)
         print(datetime.datetime.now().strftime(f"[%d %B %Y %H:%M:%S.%f | Region: {region_list[0]}] Successfully Send Testing Webhook"))
     
