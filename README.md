@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://discord.gg/b6zyJyCQUu">
-    <img src="https://cdn.discordapp.com/attachments/955216634522525746/1099813661943550002/logo-modified.png" alt="Logo" width="auto" height="256">
+    <img src="https://cdn.discordapp.com/attachments/955216634522525746/1099813661943550002/logo-modified.png" alt="Logo" width="auto" height="180">
   </a>
   
   <h3 align="center">Sole Retriever Raffle Monitor</h3>
