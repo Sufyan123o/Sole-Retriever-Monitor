@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://discord.gg/b6zyJyCQUu">
-    <img src="https://cdn.discordapp.com/attachments/955216634522525746/1099813661943550002/logo-modified.png" alt="Logo" width="auto" height="180">
+    <img src="https://media.discordapp.net/attachments/597104422123995136/1099811349166575686/download_2-modified.png?ex=6662d4e3&is=66618363&hm=507b19528e02938d17f192888208943fa021b85913e4e4645b0293402f03f778&=&format=webp&quality=lossless&width=818&height=818" alt="Logo" width="auto" height="180">
   </a>
   
   <h3 align="center">Sole Retriever Raffle Monitor</h3>
@@ -27,8 +27,7 @@ Join the Discord Server YasCommunity for Code, Sneakers and Everything in-betwee
 
 <p align="center">
   <a href="https://github.com/Sufyan123o/SufRetriever">
-    <img src="https://media.discordapp.net/attachments/597104422123995136/1099811349166575686/download_2-modified.png" alt="Logo" width="auto" height="256">
-    <img src="https://cdn.discordapp.com/attachments/692518598241026139/1099801733884035134/image.png" alt="Logo" width="auto" height="256">
+    <img src="https://media.discordapp.net/attachments/955216634522525746/1064975214804488272/logo.jpg?ex=6662a935&is=666157b5&hm=02f766553e8c7b9e60cee6dd252a9ebd476d86d147e94fec1b94a0a1fa05fc1c&=&format=webp&width=1138&height=1138" alt="Logo" width="auto" height="256">
   </a>
 </p>
 <br />
